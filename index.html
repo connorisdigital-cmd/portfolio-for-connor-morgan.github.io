@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
     <title>Connor Morgan-Salmon - Portfolio</title>
     <style>
         :root {
@@ -319,7 +320,7 @@
             margin-top: 10px;
             max-width: 90%;
             display: -webkit-box;
-            -webkit-line-clamp: 3;
+            -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
             overflow: hidden;
         }
@@ -444,14 +445,21 @@
             overflow: hidden;
             background: #111;
             box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
         }
 
         .video-player-wrap iframe,
         .video-player-wrap video {
             width: 100%;
-            aspect-ratio: 16 / 9;
+            height: 100%;
             border: 0;
             display: block;
+        }
+
+        .video-player-wrap.video-portrait {
+            aspect-ratio: 9 / 16;
         }
 
         @media (max-width: 900px) {
@@ -526,7 +534,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Connor Morgan-Salmon</h1>
-            <p>Mixed Social Media Manager | Photographer | Graphic Designer | Video Editor</p>
+            <p>Mixed Social Media | Photographer | Graphic Designer | Video Editor</p>
         </div>
     </section>
 
@@ -541,6 +549,9 @@
                 <p>
                     My background allows me to create content that not only looks great but resonates with the viewer, from capturing natural visuals to designing cohesive branding and managing SEO growth, I bring both creativity and strategy to every project.
                 </p>
+                <p>
+                    <i>Some samples includes concept and recreated examples due to NDA restrictions and client projects. These pieces are intended to demonstrate my approach to content creation, editing and brand understanding.</i>
+                </p>
                 <h3>Certificates & Achievements</h3>
                 <ul class="certificates-list">
                     <li>Advanced Social Media Marketing</li>
@@ -549,7 +560,7 @@
                 </ul>
             </div>
             <div class="about-image">
-                <img src="https://i.imgur.com/gl943Y9.jpeg" alt="Connor Morgan-Salmon">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773951457/Portfolio/copy_of_img_20220715_182647_340_original_b13wcz_fe283c.jpg" alt="Connor Morgan-Salmon">
             </div>
         </div>
     </section>
@@ -558,29 +569,29 @@
         <h2 class="section-title">Graphic Design</h2>
         <div class="portfolio-grid">
             <button class="portfolio-item" data-modal="business-cards">
-                <img src="https://i.imgur.com/mN9BdZK.jpeg" alt="Business Cards">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947380/levi_metz_business_card_mockup_dazssi.jpg" alt="Business Cards">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Business Cards</h3>
-                    <p>Custom-designed business cards that make a lasting impression and reinforce your brand's professional image.</p>
+                    <p>Professional on-brand business cards and mockups.</p>
                 </div>
             </button>
 
             <button class="portfolio-item" data-modal="branding-logos">
-                <img src="https://i.imgur.com/PhS7AM7.png" alt="Branding and Logos">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947462/oddball_carousel-01_zvuwac.png" alt="Branding and Logos">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Branding & Logos</h3>
-                    <p>Crafting a strong visual identity with professional logos and branding materials that make your business stand out.</p>
+                    <p>Developing brand identities, logos, colour systems and visual direction.</p>
                 </div>
             </button>
 
             <button class="portfolio-item" data-modal="flyers-social-posts">
-                <img src="https://i.imgur.com/6yo13xD.png" alt="Flyers and Social Media Posts">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947352/Poster_-_Board_Game_Paradise_1_snpeqf.png" alt="Flyers and Social Media Posts">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Flyers & Social Media Posts</h3>
-                    <p>Professional designs for flyers and social media posts that communicate your message clearly and attract new customers.</p>
+                    <p>Engaging, social media content and flyers focused on visual impact.</p>
                 </div>
             </button>
         </div>
@@ -590,20 +601,20 @@
         <h2 class="section-title">Instagram Carousels</h2>
         <div class="portfolio-grid">
             <button class="portfolio-item" data-modal="educational-carousels">
-                <img src="https://i.imgur.com/MJUC6on.png" alt="Educational Carousels">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947369/1_eqwdce.png" alt="Educational Carousels">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Educational Carousels</h3>
-                    <p>Swipe-based posts built to explain information clearly, increase saves, and improve engagement.</p>
+                    <p>Structured, easy-to-digest carousel content that communicates information effectively.</p>
                 </div>
             </button>
 
             <button class="portfolio-item" data-modal="promo-carousels">
-                <img src="https://i.imgur.com/lBa5Agh.jpeg" alt="Promotional Carousels">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948172/42b84e4b-0452-43ba-8d9d-0764aef1d451.png" alt="Promotional Carousels">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Promotional Carousels</h3>
-                    <p>Campaign-led carousel designs for offers, launches, and event promotion with consistent branding.</p>
+                    <p>Content carousel that showcases brand tone, values nad products through visual storytelling.</p>
                 </div>
             </button>
         </div>
@@ -611,54 +622,58 @@
 
     <section id="video-editing" class="container">
         <h2 class="section-title">Video Editing</h2>
+        
         <div class="portfolio-grid">
             <button class="portfolio-item" data-modal="video-one-modal">
-                <img src="https://i.imgur.com/oLDVxFo.mp4" alt="Video Project 1">
+                <img src="https://img.youtube.com/vi/ZwpZmeaTJlo/hqdefault.jpg" alt="Video Project 1">
                 <span class="click-hint">Click to play</span>
                 <div class="item-overlay">
                     <h3>Video Project 1</h3>
-                    <p>Click to open and play the video.</p>
+                    <p>Short-form video editing example.</p>
                 </div>
             </button>
 
             <button class="portfolio-item" data-modal="video-two-modal">
-                <img src="YOUR_VIDEO_2_COVER_IMAGE" alt="Video Project 2">
+                <img src="https://img.youtube.com/vi/iHco98lBRfs/hqdefault.jpg" alt="Video Project 2">
                 <span class="click-hint">Click to play</span>
                 <div class="item-overlay">
                     <h3>Video Project 2</h3>
-                    <p>Click to open and play the video.</p>
+                    <p>Short-form video editing example.</p>
                 </div>
             </button>
         </div>
+        <p>
+                    <i>Having trouble with the video? Please click “Watch on YouTube” as some browsers may not display embeds correctly.</i>
+                </p>
     </section>
 
     <section id="photography" class="container">
         <h2 class="section-title">Photography</h2>
         <div class="portfolio-grid">
             <button class="portfolio-item" data-modal="animal-photography">
-                <img src="https://i.imgur.com/AWVWJZY.jpeg" alt="Animal Photography">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947359/dog_2_spo07_1_of_1_1_cx8jxr.jpg" alt="Animal Photography">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Animal Photography</h3>
-                    <p>Specialized photography that captures the unique personality and spirit of animals, perfect for a local riding yard or pet brand.</p>
+                    <p>Capturing natural behaviour and personality in animals, focus on dog and acts.</p>
                 </div>
             </button>
 
             <button class="portfolio-item" data-modal="people-events">
-                <img src="https://i.imgur.com/rbjGR1V.jpeg" alt="People and Events">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948246/bride_and_groom_1_1_of_1_gfnqer.jpg" alt="People and Events">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>People & Events</h3>
-                    <p>Capturing the energy and key moments of business events to create memorable, shareable content for your audience.</p>
+                    <p>Caputuring authetnic moments and atmosphere.</p>
                 </div>
             </button>
 
             <button class="portfolio-item" data-modal="product-lifestyle">
-                <img src="https://i.imgur.com/ntdr5Yu.jpeg" alt="Product and Lifestyle">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947466/merc_9_1_of_1_xhpwho.jpg" alt="Product and Lifestyle">
                 <span class="click-hint">Click to view</span>
                 <div class="item-overlay">
                     <h3>Product & Lifestyle</h3>
-                    <p>High-quality product and lifestyle photography to elevate your brand's presence and engage customers on social media.</p>
+                    <p>Showcasing products, vehicles and locations in real-world settings.</p>
                 </div>
             </button>
         </div>
@@ -689,7 +704,7 @@
 
     <footer>
         <div class="container">
-            <p>&copy; 2025 Connor Morgan-Salmon All Rights Reserved.</p>
+            <p>&copy; 2026 Connor Morgan-Salmon All Rights Reserved.</p>
         </div>
     </footer>
 
@@ -699,15 +714,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Animal Photography</h2>
-                <p>Specialized photography capturing animals with personality, atmosphere, and social-ready composition.</p>
+                <p>A selection of animal photography work.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/AWVWJZY.jpeg" alt="Animal Photography 1">
-                <img src="https://i.imgur.com/Ik3WdD4.jpeg" alt="Animal Photography 2">
-                <img src="https://i.imgur.com/1MvqwlC.jpeg" alt="Animal Photography 3">
-                <img src="https://i.imgur.com/8IGNhLe.jpeg" alt="Animal Photography 4">
-                <img src="https://i.imgur.com/YnIEita.jpeg" alt="Animal Photography 5">
-                <img src="https://i.imgur.com/rFV0k3T.jpeg" alt="Animal Photography 6">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947309/dog_3_sp07_1_of_1_1_ua0tvd.jpg" alt="Animal Photography 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947471/bella_3_short_1_of_1_kltc7s.jpg" alt="Animal Photography 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947304/dog_6_1_of_1_1_w6fs9v.jpg" alt="Animal Photography 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947338/chucky_full_future_1_of_1_lar9ob.jpg" alt="Animal Photography 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947479/weird_cat_screamin_1_of_1_kp95e4.jpg" alt="Animal Photography 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947276/crusty_white_dog_1_of_1_wp63il.jpg" alt="Animal Photography 6">
             </div>
         </div>
     </div>
@@ -717,15 +732,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>People & Events</h2>
-                <p>Event photography designed to capture atmosphere, important moments, and content that works across social channels.</p>
+                <p>A selection of people and event photography.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/rbjGR1V.jpeg" alt="People and Events 1">
-                <img src="https://i.imgur.com/f3WdOoJ.jpeg" alt="People and Events 2">
-                <img src="https://i.imgur.com/06uvmrI.jpeg" alt="People and Events 3">
-                <img src="https://i.imgur.com/ZFUEww9.jpeg" alt="People and Events 4">
-                <img src="https://i.imgur.com/db0Osr0.jpeg" alt="People and Events 5">
-                <img src="https://i.imgur.com/BugtLIl.jpeg" alt="People and Events 6">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948246/bride_and_groom_1_1_of_1_gfnqer.jpg" alt="People and Events 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947340/brandon_edit_2_burn_neslne.jpg" alt="People and Events 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947274/lemon_ppl_practice_2_1_of_1_yxiy2v.jpg" alt="People and Events 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947283/decor_1_of_1_d2ddhr.jpg" alt="People and Events 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947269/group_photo_zoom_in_3_1_of_1_1_qzuxwj.jpg" alt="People and Events 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947301/bride_and_bridesmaids_2_1_of_1_bs0xbv.jpg" alt="People and Events 6">
             </div>
         </div>
     </div>
@@ -735,15 +750,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Product & Lifestyle</h2>
-                <p>Visual-first product photography and lifestyle content built to strengthen brand identity and improve engagement.</p>
+                <p>A selection of product and lifestyle photography.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/ntdr5Yu.jpeg" alt="Product and Lifestyle 1">
-                <img src="https://i.imgur.com/TnD4Qmy.jpeg" alt="Product and Lifestyle 2">
-                <img src="https://i.imgur.com/OYmFsJk.jpeg" alt="Product and Lifestyle 3">
-                <img src="https://i.imgur.com/aQeTXjN.jpeg" alt="Product and Lifestyle 4">
-                <img src="https://i.imgur.com/brweCVk.jpeg" alt="Product and Lifestyle 5">
-                <img src="https://i.imgur.com/GXz9hwv.jpeg" alt="Product and Lifestyle 6">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947466/merc_9_1_of_1_xhpwho.jpg" alt="Product and Lifestyle 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947292/lime_watch_1_of_1_tffnlv.jpg" alt="Product and Lifestyle 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947327/merc_8_1_of_1_mvsdph.jpg" alt="Product and Lifestyle 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947334/close_up_rose_fto07_closer_1_of_1_wtwnov.jpg" alt="Product and Lifestyle 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947261/coffee_cup_ft11_1_of_1_1_ur5s8u.jpg" alt="Product and Lifestyle 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947474/valentines_day_1_of_1_dykeyz.jpg" alt="Product and Lifestyle 6">
             </div>
         </div>
     </div>
@@ -754,12 +769,12 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Business Cards</h2>
-                <p>Professional print-ready business card designs created to leave a strong, memorable first impression.</p>
+                <p>A selection of business card designs.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/mN9BdZK.jpeg" alt="Business Cards 1">
-                <img src="https://i.imgur.com/pUg9Bse.jpeg" alt="Business Cards 2">
-                <img src="https://i.imgur.com/wndD1tZ.jpeg" alt="Business Cards 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947380/levi_metz_business_card_mockup_dazssi.jpg" alt="Business Cards 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948571/6516569b-cb63-4a01-a0dd-a92c9cfa6f6f.png" alt="Business Cards 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948582/3ee026ba-1c25-4e67-8fdf-9c8f2a3727de.png" alt="Business Cards 3">
             </div>
         </div>
     </div>
@@ -769,15 +784,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Branding & Logos</h2>
-                <p>Identity design work focused on clarity, recognition, and building a professional visual presence.</p>
+                <p>A selection of branding and logo work.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/PhS7AM7.png" alt="Branding and Logos 1">
-                <img src="https://i.imgur.com/zQFUmvv.jpeg" alt="Branding and Logos 2">
-                <img src="https://i.imgur.com/jIhZ5Hh.png" alt="Branding and Logos 3">
-                <img src="https://i.imgur.com/lBa5Agh.jpeg" alt="Branding and Logos 4">
-                <img src="https://i.imgur.com/JYpHVNg.jpeg" alt="Branding and Logos 5">
-                <img src="https://i.imgur.com/2MvwkRl.png" alt="Branding and Logos 6">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947462/oddball_carousel-01_zvuwac.png" alt="Branding and Logos 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947384/verstige_t_shirt_mockup_2_u7xopn.jpg" alt="Branding and Logos 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947288/Untitled_1080_x_1080_px_iifnw7.png" alt="Branding and Logos 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947273/CMK9PFP_wuhj83.jpg" alt="Branding and Logos 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947348/STRATACAST_LOGO_ENCOMPASSED_ara32c.jpg" alt="Branding and Logos 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947458/carousel_moncarhce_sep-01_cpqrd5.png" alt="Branding and Logos 6">
             </div>
         </div>
     </div>
@@ -787,15 +802,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Flyers & Social Media Posts</h2>
-                <p>Promotional design work built for both print and digital use, with clear messaging and strong visual hierarchy.</p>
+                <p>A selection of flyer and social media designs.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/6yo13xD.png" alt="Flyers and Social Media Posts 1">
-                <img src="https://i.imgur.com/UEM4raM.jpeg" alt="Flyers and Social Media Posts 2">
-                <img src="https://i.imgur.com/11cJJWy.png" alt="Flyers and Social Media Posts 3">
-                <img src="https://i.imgur.com/FrKrpIL.jpeg" alt="Flyers and Social Media Posts 4">
-                <img src="https://i.imgur.com/6XfRNud.png" alt="Flyers and Social Media Posts 5">
-                <img src="https://i.imgur.com/mwVuS3R.png" alt="Flyers and Social Media Posts 6">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947257/Poster_-_Board_Game_Paradise_1_dhxxzo.png" alt="Flyers and Social Media Posts 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947270/380423379_1394572931095481_8016057238852600582_n_xijfpq.jpg" alt="Flyers and Social Media Posts 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947257/lick._1_alobwn.png" alt="Flyers and Social Media Posts 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947282/oddball_carousel-02_khpktf.png" alt="Flyers and Social Media Posts 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947392/stratacast_15_okptkk.png" alt="Flyers and Social Media Posts 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948884/what_s_inside_this_adorable_surprise_cg9aju.png" alt="Flyers and Social Media Posts 6">
             </div>
         </div>
     </div>
@@ -806,14 +821,14 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Educational Carousels</h2>
-                <p>Carousel posts built to explain ideas clearly, increase saves, and guide users slide by slide.</p>
+                <p>A selection of educational carousel designs.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/MJUC6on.png" alt="Educational Carousel 1">
-                <img src="https://i.imgur.com/jloDKYg.png" alt="Educational Carousel 2">
-                <img src="https://i.imgur.com/ILOj3GO.png" alt="Educational Carousel 3">
-                <img src="https://i.imgur.com/wjMWWl8.png" alt="Educational Carousel 4">
-                <img src="https://i.imgur.com/11cJJWy.png" alt="Educational Carousel 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947369/1_eqwdce.png" alt="Educational Carousel 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947370/2_b9fk2s.png" alt="Educational Carousel 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947362/3_gokyaj.png" alt="Educational Carousel 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947364/4_lkbzee.png" alt="Educational Carousel 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947366/5_mhsvvy.png" alt="Educational Carousel 5">
             </div>
         </div>
     </div>
@@ -823,13 +838,13 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Promotional Carousels</h2>
-                <p>Carousel campaigns for launches, announcements, events, and service promotion.</p>
+                <p>A selection of promotional carousel designs.</p>
             </div>
             <div class="modal-gallery">
-                <img src="https://i.imgur.com/lBa5Agh.jpeg" alt="Promotional Carousel 1">
-                <img src="https://i.imgur.com/3UgXC82.jpeg" alt="Promotional Carousel 2">
-                <img src="https://i.imgur.com/EijHFnR.png" alt="Promotional Carousel 3">
-                <img src="https://i.imgur.com/2pLOE4i.png" alt="Promotional Carousel 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948172/42b84e4b-0452-43ba-8d9d-0764aef1d451.png" alt="Promotional Carousel 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948993/ac5994a0-eaf3-4a0e-be35-e6f4b02e0f9e.png" alt="Promotional Carousel 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947594/velvetta_branding-03_ylw6zw.png" alt="Promotional Carousel 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947589/velvetta_branding-04_nspfl4.png" alt="Promotional Carousel 4">
             </div>
         </div>
     </div>
@@ -840,10 +855,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Video Project 1</h2>
-                <p>Replace the embed link below with your actual video.</p>
+                <p>Short-form video editing example.</p>
             </div>
-            <div class="video-player-wrap">
-                <iframe src="https://i.imgur.com/oLDVxFo.mp4" title="Video Project 1" allowfullscreen></iframe>
+            <div class="video-player-wrap video-portrait">
+                <iframe
+                    src="https://www.youtube.com/embed/ZwpZmeaTJlo?playsinline=1&rel=0"
+                    title="Video Project 1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
     </div>
@@ -853,9 +873,15 @@
             <button class="close-modal" aria-label="Close modal">&times;</button>
             <div class="modal-header">
                 <h2>Video Project 2</h2>
+                <p>Short-form video editing example.</p>
             </div>
-            <div class="video-player-wrap">
-                <iframe src="https://i.imgur.com/oLDVxFo.mp4" title="Video Project 2" allowfullscreen></iframe>
+            <div class="video-player-wrap video-portrait">
+                <iframe
+                    src="https://www.youtube.com/embed/iHco98lBRfs?playsinline=1&rel=0"
+                    title="Video Project 2"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
             </div>
         </div>
     </div>
