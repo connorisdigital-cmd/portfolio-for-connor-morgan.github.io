@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connor Morgan-Salmon - Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #d11f2f;
+            --background-color: #f4f4f4;
+            --card-background: #fff;
+            --text-color: #333;
+            --light-text-color: #777;
+            --overlay-dark: rgba(0, 0, 0, 0.72);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(5px);
+            transition: background 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-link {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .hamburger {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+
+        .hamburger::before {
+            top: -8px;
+        }
+
+        .hamburger::after {
+            top: 8px;
+        }
+
+        .nav-toggle.active .hamburger {
+            transform: rotate(45deg);
+        }
+
+        .nav-toggle.active .hamburger::before {
+            top: 0;
+            transform: rotate(90deg);
+        }
+
+        .nav-toggle.active .hamburger::after {
+            top: 0;
+            transform: rotate(-90deg);
+            display: none;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            height: 50vh;
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            padding-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--light-text-color);
+            max-width: 600px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            width: 70px;
+            height: 4px;
+            background: var(--secondary-color);
+            display: block;
+            margin: 10px auto 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text h3 {
+            color: var(--primary-color);
+        }
+
+        .certificates-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .certificates-list li {
+            background: var(--secondary-color);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 450px;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            background: transparent;
+            width: 100%;
+            display: block;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.35s ease;
+        }
+
+        .portfolio-item:hover img,
+        .portfolio-item:focus img {
+            transform: scale(1.05);
+            filter: brightness(0.7);
+        }
+
+        .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .portfolio-item:hover .item-overlay,
+        .portfolio-item:focus .item-overlay {
+            opacity: 1;
+        }
+
+        .item-overlay h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .item-overlay p {
+            font-size: 1rem;
+            margin-top: 10px;
+            max-width: 90%;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.96);
+            color: var(--primary-color);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            padding: 8px 12px;
+            border-radius: 999px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+            pointer-events: none;
+        }
+
+        .portfolio-item:hover .click-hint,
+        .portfolio-item:focus .click-hint {
+            background: #fff;
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 15px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            position: relative;
+            background: #fff;
+            width: min(1100px, 100%);
+            margin: 40px auto;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            animation: modalFade 0.25s ease;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border: none;
+            background: var(--secondary-color);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding-right: 55px;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            margin: 0 0 10px;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .modal-header p {
+            margin: 0;
+            color: var(--light-text-color);
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+            display: block;
+            object-fit: cover;
+        }
+
+        #flyers-social-posts .modal-gallery img {
+            aspect-ratio: 4 / 5;
+        }
+
+        .video-player-wrap {
+            border-radius: 14px;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+        }
+
+        .video-player-wrap iframe,
+        .video-player-wrap video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: 0;
+            display: block;
+        }
+
+        @media (max-width: 900px) {
+            .about-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.97);
+                text-align: center;
+                padding: 1rem 0;
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .nav-link::after {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo-link">Portfolio 2026</a>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span> 
+            </button>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#graphic-design" class="nav-link">Graphic Design</a></li>
+                <li class="nav-item"><a href="#instagram-carousels" class="nav-link">Instagram Carousels</a></li>
+                <li class="nav-item"><a href="#video-editing" class="nav-link">Video Editing</a></li>
+                <li class="nav-item"><a href="#photography" class="nav-link">Photography</a></li>
+                <!-- <li class="nav-item"><a href="#web-design" class="nav-link">Web Design</a></li> -->
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Connor Morgan-Salmon</h1>
+            <p>Mixed Social Media Manager | Photographer | Graphic Designer | Video Editor</p>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">About Me & Experience</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Hello, I'm Connor!</h3>
+                <p>
+                    I’m an experienced social media manager with a strong background in digital content creation and information technology, combined with a genuine passion for dogs and previous experience as a former trainer. I specialise in building engaging, authentic online prescenses for pet-focused brands through high-quality photography, designs that tell a story and well-optimised content but I have a wide range of skills allowing me to be flexible in each industry I attend to.
+                </p>
+                <p>
+                    My background allows me to create content that not only looks great but resonates with the viewer, from capturing natural visuals to designing cohesive branding and managing SEO growth, I bring both creativity and strategy to every project.
+                </p>
+                <h3>Certificates & Achievements</h3>
+                <ul class="certificates-list">
+                    <li>Advanced Social Media Marketing</li>
+                    <li>Google Analytics for Beginners</li>
+                    <li>CIM in Digital Marketing with Marketing Essentials & Content Channels </li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <img src="https://i.imgur.com/gl943Y9.jpeg" alt="Connor Morgan-Salmon">
+            </div>
+        </div>
+    </section>
+
+    <section id="graphic-design" class="container">
+        <h2 class="section-title">Graphic Design</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="business-cards">
+                <img src="https://i.imgur.com/mN9BdZK.jpeg" alt="Business Cards">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Business Cards</h3>
+                    <p>Custom-designed business cards that make a lasting impression and reinforce your brand's professional image.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="branding-logos">
+                <img src="https://i.imgur.com/PhS7AM7.png" alt="Branding and Logos">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Branding & Logos</h3>
+                    <p>Crafting a strong visual identity with professional logos and branding materials that make your business stand out.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="flyers-social-posts">
+                <img src="https://i.imgur.com/6yo13xD.png" alt="Flyers and Social Media Posts">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Flyers & Social Media Posts</h3>
+                    <p>Professional designs for flyers and social media posts that communicate your message clearly and attract new customers.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <section id="instagram-carousels" class="container">
+        <h2 class="section-title">Instagram Carousels</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="educational-carousels">
+                <img src="https://i.imgur.com/MJUC6on.png" alt="Educational Carousels">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Educational Carousels</h3>
+                    <p>Swipe-based posts built to explain information clearly, increase saves, and improve engagement.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="promo-carousels">
+                <img src="https://i.imgur.com/lBa5Agh.jpeg" alt="Promotional Carousels">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Promotional Carousels</h3>
+                    <p>Campaign-led carousel designs for offers, launches, and event promotion with consistent branding.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <section id="video-editing" class="container">
+        <h2 class="section-title">Video Editing</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="video-one-modal">
+                <img src="https://i.imgur.com/oLDVxFo.mp4" alt="Video Project 1">
+                <span class="click-hint">Click to play</span>
+                <div class="item-overlay">
+                    <h3>Video Project 1</h3>
+                    <p>Click to open and play the video.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="video-two-modal">
+                <img src="YOUR_VIDEO_2_COVER_IMAGE" alt="Video Project 2">
+                <span class="click-hint">Click to play</span>
+                <div class="item-overlay">
+                    <h3>Video Project 2</h3>
+                    <p>Click to open and play the video.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <section id="photography" class="container">
+        <h2 class="section-title">Photography</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="animal-photography">
+                <img src="https://i.imgur.com/AWVWJZY.jpeg" alt="Animal Photography">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Animal Photography</h3>
+                    <p>Specialized photography that captures the unique personality and spirit of animals, perfect for a local riding yard or pet brand.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="people-events">
+                <img src="https://i.imgur.com/rbjGR1V.jpeg" alt="People and Events">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>People & Events</h3>
+                    <p>Capturing the energy and key moments of business events to create memorable, shareable content for your audience.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="product-lifestyle">
+                <img src="https://i.imgur.com/ntdr5Yu.jpeg" alt="Product and Lifestyle">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Product & Lifestyle</h3>
+                    <p>High-quality product and lifestyle photography to elevate your brand's presence and engage customers on social media.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!--
+    <section id="web-design" class="container">
+        <h2 class="section-title">Web Design</h2>
+        <div class="portfolio-grid web-design-grid">
+            <button class="portfolio-item" data-modal="gaming-cafe">
+                <img src="https://i.imgur.com/9L35AA8.png" alt="Gaming Cafe Website">
+                <div class="item-overlay">
+                    <h3>Gaming Cafe Website</h3>
+                    <p>A modern, responsive website for a gaming cafe, complete with dynamic calendars and menus to engage the local community.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="horse-riding-yard">
+                <img src="https://i.imgur.com/gn79k2l.png" alt="Horse Riding Yard Website">
+                <div class="item-overlay">
+                    <h3>Horse Riding Yard Website</h3>
+                    <p>A user-friendly website for a horse riding yard, featuring a clear display of services and easy-to-use contact forms for client inquiries.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+    -->
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Connor Morgan-Salmon All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- PHOTOGRAPHY MODALS -->
+    <div class="modal" id="animal-photography">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Animal Photography</h2>
+                <p>Specialized photography capturing animals with personality, atmosphere, and social-ready composition.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/AWVWJZY.jpeg" alt="Animal Photography 1">
+                <img src="https://i.imgur.com/Ik3WdD4.jpeg" alt="Animal Photography 2">
+                <img src="https://i.imgur.com/1MvqwlC.jpeg" alt="Animal Photography 3">
+                <img src="https://i.imgur.com/8IGNhLe.jpeg" alt="Animal Photography 4">
+                <img src="https://i.imgur.com/YnIEita.jpeg" alt="Animal Photography 5">
+                <img src="https://i.imgur.com/rFV0k3T.jpeg" alt="Animal Photography 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="people-events">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>People & Events</h2>
+                <p>Event photography designed to capture atmosphere, important moments, and content that works across social channels.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/rbjGR1V.jpeg" alt="People and Events 1">
+                <img src="https://i.imgur.com/f3WdOoJ.jpeg" alt="People and Events 2">
+                <img src="https://i.imgur.com/06uvmrI.jpeg" alt="People and Events 3">
+                <img src="https://i.imgur.com/ZFUEww9.jpeg" alt="People and Events 4">
+                <img src="https://i.imgur.com/db0Osr0.jpeg" alt="People and Events 5">
+                <img src="https://i.imgur.com/BugtLIl.jpeg" alt="People and Events 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="product-lifestyle">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Product & Lifestyle</h2>
+                <p>Visual-first product photography and lifestyle content built to strengthen brand identity and improve engagement.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/ntdr5Yu.jpeg" alt="Product and Lifestyle 1">
+                <img src="https://i.imgur.com/TnD4Qmy.jpeg" alt="Product and Lifestyle 2">
+                <img src="https://i.imgur.com/OYmFsJk.jpeg" alt="Product and Lifestyle 3">
+                <img src="https://i.imgur.com/aQeTXjN.jpeg" alt="Product and Lifestyle 4">
+                <img src="https://i.imgur.com/brweCVk.jpeg" alt="Product and Lifestyle 5">
+                <img src="https://i.imgur.com/GXz9hwv.jpeg" alt="Product and Lifestyle 6">
+            </div>
+        </div>
+    </div>
+
+    <!-- GRAPHIC DESIGN MODALS -->
+    <div class="modal" id="business-cards">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Business Cards</h2>
+                <p>Professional print-ready business card designs created to leave a strong, memorable first impression.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/mN9BdZK.jpeg" alt="Business Cards 1">
+                <img src="https://i.imgur.com/pUg9Bse.jpeg" alt="Business Cards 2">
+                <img src="https://i.imgur.com/wndD1tZ.jpeg" alt="Business Cards 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="branding-logos">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Branding & Logos</h2>
+                <p>Identity design work focused on clarity, recognition, and building a professional visual presence.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/PhS7AM7.png" alt="Branding and Logos 1">
+                <img src="https://i.imgur.com/zQFUmvv.jpeg" alt="Branding and Logos 2">
+                <img src="https://i.imgur.com/jIhZ5Hh.png" alt="Branding and Logos 3">
+                <img src="https://i.imgur.com/lBa5Agh.jpeg" alt="Branding and Logos 4">
+                <img src="https://i.imgur.com/JYpHVNg.jpeg" alt="Branding and Logos 5">
+                <img src="https://i.imgur.com/2MvwkRl.png" alt="Branding and Logos 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="flyers-social-posts">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Flyers & Social Media Posts</h2>
+                <p>Promotional design work built for both print and digital use, with clear messaging and strong visual hierarchy.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/6yo13xD.png" alt="Flyers and Social Media Posts 1">
+                <img src="https://i.imgur.com/UEM4raM.jpeg" alt="Flyers and Social Media Posts 2">
+                <img src="https://i.imgur.com/11cJJWy.png" alt="Flyers and Social Media Posts 3">
+                <img src="https://i.imgur.com/FrKrpIL.jpeg" alt="Flyers and Social Media Posts 4">
+                <img src="https://i.imgur.com/6XfRNud.png" alt="Flyers and Social Media Posts 5">
+                <img src="https://i.imgur.com/mwVuS3R.png" alt="Flyers and Social Media Posts 6">
+            </div>
+        </div>
+    </div>
+
+    <!-- INSTAGRAM CAROUSEL MODALS -->
+    <div class="modal" id="educational-carousels">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Educational Carousels</h2>
+                <p>Carousel posts built to explain ideas clearly, increase saves, and guide users slide by slide.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/MJUC6on.png" alt="Educational Carousel 1">
+                <img src="https://i.imgur.com/jloDKYg.png" alt="Educational Carousel 2">
+                <img src="https://i.imgur.com/ILOj3GO.png" alt="Educational Carousel 3">
+                <img src="https://i.imgur.com/wjMWWl8.png" alt="Educational Carousel 4">
+                <img src="https://i.imgur.com/11cJJWy.png" alt="Educational Carousel 5">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="promo-carousels">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Promotional Carousels</h2>
+                <p>Carousel campaigns for launches, announcements, events, and service promotion.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/lBa5Agh.jpeg" alt="Promotional Carousel 1">
+                <img src="https://i.imgur.com/3UgXC82.jpeg" alt="Promotional Carousel 2">
+                <img src="https://i.imgur.com/EijHFnR.png" alt="Promotional Carousel 3">
+                <img src="https://i.imgur.com/2pLOE4i.png" alt="Promotional Carousel 4">
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO EDITING MODALS -->
+    <div class="modal" id="video-one-modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Video Project 1</h2>
+                <p>Replace the embed link below with your actual video.</p>
+            </div>
+            <div class="video-player-wrap">
+                <iframe src="https://i.imgur.com/oLDVxFo.mp4" title="Video Project 1" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="video-two-modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Video Project 2</h2>
+            </div>
+            <div class="video-player-wrap">
+                <iframe src="https://i.imgur.com/oLDVxFo.mp4" title="Video Project 2" allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    WEB DESIGN MODALS COMMENTED OUT
+    <div class="modal" id="gaming-cafe">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Gaming Cafe Website</h2>
+                <p>A modern, responsive web design project created to support local engagement, bookings, and brand identity.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/9L35AA8.png" alt="Gaming Cafe Website 1">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 2">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 3">
+                <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 4">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 5">
+                <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="horse-riding-yard">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Horse Riding Yard Website</h2>
+                <p>A clean and user-friendly website project designed to present services clearly and make enquiries easy.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/gn79k2l.png" alt="Horse Riding Yard Website 1">
+                <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 2">
+                <img src="https://images.unsplash.com/photo-1517846693594-1567da72af75?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 3">
+                <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 4">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 5">
+                <img src="https://images.unsplash.com/photo-1511068797325-6083f0f872b1?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 6">
+            </div>
+        </div>
+    </div>
+    -->
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        const portfolioItems = document.querySelectorAll('.portfolio-item[data-modal]');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open');
+            }
+        }
+
+        function closeModal(modal) {
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            const iframes = modal ? modal.querySelectorAll('iframe') : [];
+            iframes.forEach(iframe => {
+                const src = iframe.src;
+                iframe.src = src;
+            });
+        }
+
+        portfolioItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const modalId = item.getAttribute('data-modal');
+                openModal(modalId);
+            });
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                closeModal(modal);
+            });
+        });
+
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (modal.classList.contains('active')) {
+                        closeModal(modal);
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
