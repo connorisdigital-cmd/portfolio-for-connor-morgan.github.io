@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <title>Connor Morgan-Salmon - Portfolio</title>
+    <style>
+        :root {
+            --primary-color: #333;
+            --secondary-color: #d11f2f;
+            --background-color: #f4f4f4;
+            --card-background: #fff;
+            --text-color: #333;
+            --light-text-color: #777;
+            --overlay-dark: rgba(0, 0, 0, 0.72);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(5px);
+            transition: background 0.3s ease;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-link {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .logo-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 2rem;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .nav-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+            z-index: 10;
+        }
+
+        .hamburger {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger::before,
+        .hamburger::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 3px;
+            background-color: var(--primary-color);
+            transition: transform 0.3s ease, top 0.3s ease;
+        }
+
+        .hamburger::before {
+            top: -8px;
+        }
+
+        .hamburger::after {
+            top: 8px;
+        }
+
+        .nav-toggle.active .hamburger {
+            transform: rotate(45deg);
+        }
+
+        .nav-toggle.active .hamburger::before {
+            top: 0;
+            transform: rotate(90deg);
+        }
+
+        .nav-toggle.active .hamburger::after {
+            top: 0;
+            transform: rotate(-90deg);
+            display: none;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            text-align: center;
+            height: 50vh;
+            background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.8)), url('https://via.placeholder.com/1920x1080') no-repeat center center/cover;
+            padding-top: 60px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--light-text-color);
+            max-width: 600px;
+        }
+
+        section {
+            padding: 80px 0;
+        }
+
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            width: 70px;
+            height: 4px;
+            background: var(--secondary-color);
+            display: block;
+            margin: 10px auto 0;
+        }
+
+        .about-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+
+        .about-text {
+            flex: 2;
+        }
+
+        .about-image {
+            flex: 1;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-text h3 {
+            color: var(--primary-color);
+        }
+
+        .certificates-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .certificates-list li {
+            background: var(--secondary-color);
+            color: #fff;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 450px;
+            cursor: pointer;
+            border: none;
+            padding: 0;
+            background: transparent;
+            width: 100%;
+            display: block;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+            transition: transform 0.5s ease, filter 0.35s ease;
+        }
+
+        .portfolio-item:hover img,
+        .portfolio-item:focus img {
+            transform: scale(1.05);
+            filter: brightness(0.7);
+        }
+
+        .item-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-dark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .portfolio-item:hover .item-overlay,
+        .portfolio-item:focus .item-overlay {
+            opacity: 1;
+        }
+
+        .item-overlay h3 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .item-overlay p {
+            font-size: 1rem;
+            margin-top: 10px;
+            max-width: 90%;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .click-hint {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.96);
+            color: var(--primary-color);
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            padding: 8px 12px;
+            border-radius: 999px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+            pointer-events: none;
+        }
+
+        .portfolio-item:hover .click-hint,
+        .portfolio-item:focus .click-hint {
+            background: #fff;
+            color: var(--secondary-color);
+        }
+
+        footer {
+            background: var(--primary-color);
+            color: #fff;
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 15px;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: block;
+        }
+
+        .modal-content {
+            position: relative;
+            background: #fff;
+            width: min(1100px, 100%);
+            margin: 40px auto;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+            animation: modalFade 0.25s ease;
+        }
+
+        @keyframes modalFade {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            border: none;
+            background: var(--secondary-color);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            font-size: 1.4rem;
+            line-height: 1;
+            cursor: pointer;
+        }
+
+        .modal-header {
+            padding-right: 55px;
+            margin-bottom: 25px;
+        }
+
+        .modal-header h2 {
+            margin: 0 0 10px;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .modal-header p {
+            margin: 0;
+            color: var(--light-text-color);
+        }
+
+        .modal-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        .modal-gallery img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            border-radius: 12px;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.08);
+            display: block;
+            object-fit: cover;
+        }
+
+        #flyers-social-posts .modal-gallery img {
+            aspect-ratio: 4 / 5;
+        }
+
+        .video-player-wrap {
+            border-radius: 14px;
+            overflow: hidden;
+            background: #111;
+            box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .video-player-wrap iframe,
+        .video-player-wrap video {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .video-player-wrap.video-portrait {
+            aspect-ratio: 9 / 16;
+        }
+
+        @media (max-width: 900px) {
+            .about-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.97);
+                text-align: center;
+                padding: 1rem 0;
+                gap: 1rem;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-item {
+                margin: 0.5rem 0;
+            }
+
+            .nav-link::after {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .modal-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo-link">Portfolio 2026</a>
+            <button class="nav-toggle" aria-label="toggle navigation">
+                <span class="hamburger"></span> 
+            </button>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#graphic-design" class="nav-link">Graphic Design</a></li>
+                <li class="nav-item"><a href="#instagram-carousels" class="nav-link">Instagram Carousels</a></li>
+                <li class="nav-item"><a href="#video-editing" class="nav-link">Video Editing</a></li>
+                <li class="nav-item"><a href="#photography" class="nav-link">Photography</a></li>
+                <!-- <li class="nav-item"><a href="#web-design" class="nav-link">Web Design</a></li> -->
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Connor Morgan-Salmon</h1>
+            <p>Mixed Social Media | Photographer | Graphic Designer | Video Editor</p>
+        </div>
+    </section>
+
+    <section id="about" class="container">
+        <h2 class="section-title">About Me & Experience</h2>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Hello, I'm Connor!</h3>
+                <p>
+                    I’m an experienced social media manager with a strong background in digital content creation and information technology, combined with a genuine passion for dogs and previous experience as a former trainer. I specialise in building engaging, authentic online prescenses for pet-focused brands through high-quality photography, designs that tell a story and well-optimised content but I have a wide range of skills allowing me to be flexible in each industry I attend to.
+                </p>
+                <p>
+                    My background allows me to create content that not only looks great but resonates with the viewer, from capturing natural visuals to designing cohesive branding and managing SEO growth, I bring both creativity and strategy to every project.
+                </p>
+                <p>
+                    <i>Some samples includes concept and recreated examples due to NDA restrictions and client projects. These pieces are intended to demonstrate my approach to content creation, editing and brand understanding.</i>
+                </p>
+                <h3>Certificates & Achievements</h3>
+                <ul class="certificates-list">
+                    <li>Advanced Social Media Marketing</li>
+                    <li>Google Analytics for Beginners</li>
+                    <li>CIM in Digital Marketing with Marketing Essentials & Content Channels </li>
+                </ul>
+            </div>
+            <div class="about-image">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773951457/Portfolio/copy_of_img_20220715_182647_340_original_b13wcz_fe283c.jpg" alt="Connor Morgan-Salmon">
+            </div>
+        </div>
+    </section>
+
+    <section id="graphic-design" class="container">
+        <h2 class="section-title">Graphic Design</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="business-cards">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947380/levi_metz_business_card_mockup_dazssi.jpg" alt="Business Cards">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Business Cards</h3>
+                    <p>Professional on-brand business cards and mockups.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="branding-logos">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947462/oddball_carousel-01_zvuwac.png" alt="Branding and Logos">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Branding & Logos</h3>
+                    <p>Developing brand identities, logos, colour systems and visual direction.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="flyers-social-posts">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947352/Poster_-_Board_Game_Paradise_1_snpeqf.png" alt="Flyers and Social Media Posts">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Flyers & Social Media Posts</h3>
+                    <p>Engaging, social media content and flyers focused on visual impact.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <section id="instagram-carousels" class="container">
+        <h2 class="section-title">Instagram Carousels</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="educational-carousels">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947369/1_eqwdce.png" alt="Educational Carousels">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Educational Carousels</h3>
+                    <p>Structured, easy-to-digest carousel content that communicates information effectively.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="promo-carousels">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948172/42b84e4b-0452-43ba-8d9d-0764aef1d451.png" alt="Promotional Carousels">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Promotional Carousels</h3>
+                    <p>Content carousel that showcases brand tone, values nad products through visual storytelling.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <section id="video-editing" class="container">
+        <h2 class="section-title">Video Editing</h2>
+        
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="video-one-modal">
+                <img src="https://img.youtube.com/vi/ZwpZmeaTJlo/hqdefault.jpg" alt="Video Project 1">
+                <span class="click-hint">Click to play</span>
+                <div class="item-overlay">
+                    <h3>Video Project 1</h3>
+                    <p>Short-form video editing example.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="video-two-modal">
+                <img src="https://img.youtube.com/vi/iHco98lBRfs/hqdefault.jpg" alt="Video Project 2">
+                <span class="click-hint">Click to play</span>
+                <div class="item-overlay">
+                    <h3>Video Project 2</h3>
+                    <p>Short-form video editing example.</p>
+                </div>
+            </button>
+        </div>
+        <p>
+                    <i>Having trouble with the video? Please click “Watch on YouTube” as some browsers may not display embeds correctly.</i>
+                </p>
+    </section>
+
+    <section id="photography" class="container">
+        <h2 class="section-title">Photography</h2>
+        <div class="portfolio-grid">
+            <button class="portfolio-item" data-modal="animal-photography">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947359/dog_2_spo07_1_of_1_1_cx8jxr.jpg" alt="Animal Photography">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Animal Photography</h3>
+                    <p>Capturing natural behaviour and personality in animals, focus on dog and acts.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="people-events">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948246/bride_and_groom_1_1_of_1_gfnqer.jpg" alt="People and Events">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>People & Events</h3>
+                    <p>Caputuring authetnic moments and atmosphere.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="product-lifestyle">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947466/merc_9_1_of_1_xhpwho.jpg" alt="Product and Lifestyle">
+                <span class="click-hint">Click to view</span>
+                <div class="item-overlay">
+                    <h3>Product & Lifestyle</h3>
+                    <p>Showcasing products, vehicles and locations in real-world settings.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+
+    <!--
+    <section id="web-design" class="container">
+        <h2 class="section-title">Web Design</h2>
+        <div class="portfolio-grid web-design-grid">
+            <button class="portfolio-item" data-modal="gaming-cafe">
+                <img src="https://i.imgur.com/9L35AA8.png" alt="Gaming Cafe Website">
+                <div class="item-overlay">
+                    <h3>Gaming Cafe Website</h3>
+                    <p>A modern, responsive website for a gaming cafe, complete with dynamic calendars and menus to engage the local community.</p>
+                </div>
+            </button>
+
+            <button class="portfolio-item" data-modal="horse-riding-yard">
+                <img src="https://i.imgur.com/gn79k2l.png" alt="Horse Riding Yard Website">
+                <div class="item-overlay">
+                    <h3>Horse Riding Yard Website</h3>
+                    <p>A user-friendly website for a horse riding yard, featuring a clear display of services and easy-to-use contact forms for client inquiries.</p>
+                </div>
+            </button>
+        </div>
+    </section>
+    -->
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Connor Morgan-Salmon All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- PHOTOGRAPHY MODALS -->
+    <div class="modal" id="animal-photography">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Animal Photography</h2>
+                <p>A selection of animal photography work.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947309/dog_3_sp07_1_of_1_1_ua0tvd.jpg" alt="Animal Photography 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947471/bella_3_short_1_of_1_kltc7s.jpg" alt="Animal Photography 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947304/dog_6_1_of_1_1_w6fs9v.jpg" alt="Animal Photography 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947338/chucky_full_future_1_of_1_lar9ob.jpg" alt="Animal Photography 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947479/weird_cat_screamin_1_of_1_kp95e4.jpg" alt="Animal Photography 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947276/crusty_white_dog_1_of_1_wp63il.jpg" alt="Animal Photography 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="people-events">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>People & Events</h2>
+                <p>A selection of people and event photography.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948246/bride_and_groom_1_1_of_1_gfnqer.jpg" alt="People and Events 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947340/brandon_edit_2_burn_neslne.jpg" alt="People and Events 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947274/lemon_ppl_practice_2_1_of_1_yxiy2v.jpg" alt="People and Events 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947283/decor_1_of_1_d2ddhr.jpg" alt="People and Events 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947269/group_photo_zoom_in_3_1_of_1_1_qzuxwj.jpg" alt="People and Events 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947301/bride_and_bridesmaids_2_1_of_1_bs0xbv.jpg" alt="People and Events 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="product-lifestyle">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Product & Lifestyle</h2>
+                <p>A selection of product and lifestyle photography.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947466/merc_9_1_of_1_xhpwho.jpg" alt="Product and Lifestyle 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947292/lime_watch_1_of_1_tffnlv.jpg" alt="Product and Lifestyle 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947327/merc_8_1_of_1_mvsdph.jpg" alt="Product and Lifestyle 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947334/close_up_rose_fto07_closer_1_of_1_wtwnov.jpg" alt="Product and Lifestyle 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947261/coffee_cup_ft11_1_of_1_1_ur5s8u.jpg" alt="Product and Lifestyle 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947474/valentines_day_1_of_1_dykeyz.jpg" alt="Product and Lifestyle 6">
+            </div>
+        </div>
+    </div>
+
+    <!-- GRAPHIC DESIGN MODALS -->
+    <div class="modal" id="business-cards">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Business Cards</h2>
+                <p>A selection of business card designs.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947380/levi_metz_business_card_mockup_dazssi.jpg" alt="Business Cards 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948571/6516569b-cb63-4a01-a0dd-a92c9cfa6f6f.png" alt="Business Cards 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948582/3ee026ba-1c25-4e67-8fdf-9c8f2a3727de.png" alt="Business Cards 3">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="branding-logos">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Branding & Logos</h2>
+                <p>A selection of branding and logo work.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947462/oddball_carousel-01_zvuwac.png" alt="Branding and Logos 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947384/verstige_t_shirt_mockup_2_u7xopn.jpg" alt="Branding and Logos 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947288/Untitled_1080_x_1080_px_iifnw7.png" alt="Branding and Logos 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947273/CMK9PFP_wuhj83.jpg" alt="Branding and Logos 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947348/STRATACAST_LOGO_ENCOMPASSED_ara32c.jpg" alt="Branding and Logos 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947458/carousel_moncarhce_sep-01_cpqrd5.png" alt="Branding and Logos 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="flyers-social-posts">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Flyers & Social Media Posts</h2>
+                <p>A selection of flyer and social media designs.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947257/Poster_-_Board_Game_Paradise_1_dhxxzo.png" alt="Flyers and Social Media Posts 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947270/380423379_1394572931095481_8016057238852600582_n_xijfpq.jpg" alt="Flyers and Social Media Posts 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947257/lick._1_alobwn.png" alt="Flyers and Social Media Posts 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947282/oddball_carousel-02_khpktf.png" alt="Flyers and Social Media Posts 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947392/stratacast_15_okptkk.png" alt="Flyers and Social Media Posts 5">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948884/what_s_inside_this_adorable_surprise_cg9aju.png" alt="Flyers and Social Media Posts 6">
+            </div>
+        </div>
+    </div>
+
+    <!-- INSTAGRAM CAROUSEL MODALS -->
+    <div class="modal" id="educational-carousels">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Educational Carousels</h2>
+                <p>A selection of educational carousel designs.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947369/1_eqwdce.png" alt="Educational Carousel 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947370/2_b9fk2s.png" alt="Educational Carousel 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947362/3_gokyaj.png" alt="Educational Carousel 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947364/4_lkbzee.png" alt="Educational Carousel 4">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947366/5_mhsvvy.png" alt="Educational Carousel 5">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="promo-carousels">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Promotional Carousels</h2>
+                <p>A selection of promotional carousel designs.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948172/42b84e4b-0452-43ba-8d9d-0764aef1d451.png" alt="Promotional Carousel 1">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773948993/ac5994a0-eaf3-4a0e-be35-e6f4b02e0f9e.png" alt="Promotional Carousel 2">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947594/velvetta_branding-03_ylw6zw.png" alt="Promotional Carousel 3">
+                <img src="https://res.cloudinary.com/dr7zweqfi/image/upload/v1773947589/velvetta_branding-04_nspfl4.png" alt="Promotional Carousel 4">
+            </div>
+        </div>
+    </div>
+
+    <!-- VIDEO EDITING MODALS -->
+    <div class="modal" id="video-one-modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Video Project 1</h2>
+                <p>Short-form video editing example.</p>
+            </div>
+            <div class="video-player-wrap video-portrait">
+                <iframe
+                    src="https://www.youtube.com/embed/ZwpZmeaTJlo?playsinline=1&rel=0"
+                    title="Video Project 1"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="video-two-modal">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Video Project 2</h2>
+                <p>Short-form video editing example.</p>
+            </div>
+            <div class="video-player-wrap video-portrait">
+                <iframe
+                    src="https://www.youtube.com/embed/iHco98lBRfs?playsinline=1&rel=0"
+                    title="Video Project 2"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    WEB DESIGN MODALS COMMENTED OUT
+    <div class="modal" id="gaming-cafe">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Gaming Cafe Website</h2>
+                <p>A modern, responsive web design project created to support local engagement, bookings, and brand identity.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/9L35AA8.png" alt="Gaming Cafe Website 1">
+                <img src="https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 2">
+                <img src="https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 3">
+                <img src="https://images.unsplash.com/photo-1560253023-3ec5d502959f?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 4">
+                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 5">
+                <img src="https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?auto=format&fit=crop&w=900&q=80" alt="Gaming Cafe Website 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="horse-riding-yard">
+        <div class="modal-content">
+            <button class="close-modal" aria-label="Close modal">&times;</button>
+            <div class="modal-header">
+                <h2>Horse Riding Yard Website</h2>
+                <p>A clean and user-friendly website project designed to present services clearly and make enquiries easy.</p>
+            </div>
+            <div class="modal-gallery">
+                <img src="https://i.imgur.com/gn79k2l.png" alt="Horse Riding Yard Website 1">
+                <img src="https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 2">
+                <img src="https://images.unsplash.com/photo-1517846693594-1567da72af75?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 3">
+                <img src="https://images.unsplash.com/photo-1504593811423-6dd665756598?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 4">
+                <img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 5">
+                <img src="https://images.unsplash.com/photo-1511068797325-6083f0f872b1?auto=format&fit=crop&w=900&q=80" alt="Horse Riding Yard Website 6">
+            </div>
+        </div>
+    </div>
+    -->
+
+    <script>
+        const navToggle = document.querySelector('.nav-toggle');
+        const navMenu = document.querySelector('.nav-menu');
+
+        navToggle.addEventListener('click', () => {
+            navToggle.classList.toggle('active');
+            navMenu.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navToggle.classList.remove('active');
+                navMenu.classList.remove('active');
+            });
+        });
+
+        const portfolioItems = document.querySelectorAll('.portfolio-item[data-modal]');
+        const modals = document.querySelectorAll('.modal');
+        const closeButtons = document.querySelectorAll('.close-modal');
+
+        function openModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.classList.add('modal-open');
+            }
+        }
+
+        function closeModal(modal) {
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.classList.remove('modal-open');
+            }
+
+            const iframes = modal ? modal.querySelectorAll('iframe') : [];
+            iframes.forEach(iframe => {
+                const src = iframe.src;
+                iframe.src = src;
+            });
+        }
+
+        portfolioItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const modalId = item.getAttribute('data-modal');
+                openModal(modalId);
+            });
+        });
+
+        closeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const modal = button.closest('.modal');
+                closeModal(modal);
+            });
+        });
+
+        modals.forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modals.forEach(modal => {
+                    if (modal.classList.contains('active')) {
+                        closeModal(modal);
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
